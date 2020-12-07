@@ -4,17 +4,35 @@ require_relative "../lib/user.rb"
 require_relative "../lib/teacher.rb"
 require_relative "../lib/student.rb"
 
-steve = Student.new
+steve = Student.new # original student
 steve.first_name = "Steve"
 steve.last_name = "Jobs"
 
-avi = Teacher.new
-avi.first_name = "Avi"
+def new_student(first_name, last_name)  # created method avoid DRY
+  student = Student.new
+  student.first_name = first_name
+  student.last_name = last_name
+  student
+end
+
+jim = new_student("Jim", "Slim")  # creates new students
+sue = new_student("Sue", "Bob")
+
+
+avi = Teacher.new   # creates teacher 
+avi.first_name = "Avi"  
 avi.last_name = "Flombaum"
 
 
-some_knowledge = avi.teach 
+some_knowledge = avi.teach  # gets knowledge to pass to students
+more_knowledge = avi.teach
+even_more_knowledge = avi.teach 
 
-steve.learn(some_knowledge)
+steve.learn(some_knowledge)   # use #learn method to "teach students info"
+jim.learn(more_knowledge)
+sue.learn(even_more_knowledge)
+sue.learn(some_knowledge)
 
-puts "Steve just learned this important knowledge: '#{steve.knowledge.first}' from Avi"
+puts "Steve just learned this important knowledge: '#{steve.knowledge.first}' from Avi" # puts the first thing they learned
+puts "Jim just learned this important Knowledge: '#{jim.knowledge.first}' from Avi"
+puts "Sue just learned this important Knowledge: '#{sue.knowledge.join(', ')}' from Avi"  # puts whole array of knowledge seperated with commas
